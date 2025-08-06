@@ -1,0 +1,27 @@
+[tool.black]
+line-length = 130                # 한 줄 최대 길이 제한
+target-version = ['py310']     # Python 3.10 기준으로 코드 포맷팅
+skip-string-normalization = true  # 문자열에 대해 작은따옴표/큰따옴표 자동 변환 방지
+
+[tool.ruff]
+line-length = 130                 # 한 줄 최대 길이
+target-version = "py310"        # Python 3.10 기준으로 검사
+select = ["E", "F", "B", "I"]    # 사용할 룰 세트: 기본 스타일, 정적 분석, 버그 감지, import 정렬
+exclude = ["migrations", "tests"] # 검사 제외 디렉토리
+ignore = ["B008"]               # 무시할 룰 코드 (예: mutable default arguments 허용)
+
+[tool.ruff.isort]
+known-first-party = ["app"]     # 우리 프로젝트 내 모듈 (import 순서 정렬 시 우선 분류)
+combine-as-imports = true       # import A as B 스타일 정렬시 한 줄로 묶기
+
+[tool.mypy]
+python_version = "3.10"              # 타입 검사 시 사용할 파이썬 버전
+ignore_missing_imports = true        # 외부 패키지 import 누락에 대해 에러 무시
+disallow_untyped_defs = true         # 타입 힌트 없는 함수 정의 금지
+check_untyped_defs = true            # 타입 힌트 없는 함수라도 내부 검사 실행
+warn_unused_ignores = true           # 불필요한 # type: ignore 경고
+strict_optional = true               # Optional 타입 엄격하게 검사
+
+[tool.pydantic-mypy]
+init_typed = true                    # __init__에도 타입 힌트를 강제함
+warn_required_dynamic_aliases = true
