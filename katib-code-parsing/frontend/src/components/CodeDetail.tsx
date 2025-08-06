@@ -20,6 +20,7 @@ const CodeDetail: React.FC = () => {
   const [code, setCode] = useState<Code | null>(null);
   const [selectedVersion, setSelectedVersion] = useState<CodeVersion | null>(null);
   const [codeContent, setCodeContent] = useState<string>('');
+  const [editorHeight, setEditorHeight] = useState<string>('60vh'); // Initial height
   const [isEditingCodeName, setIsEditingCodeName] = useState<boolean>(false);
   const [newCodeName, setNewCodeName] = useState<string>('');
   const [selectedParsingResult, setSelectedParsingResult] = useState<ParsingResult | null>(null);
@@ -32,6 +33,18 @@ const CodeDetail: React.FC = () => {
   useEffect(() => {
     fetchCodeDetail();
   }, [codeId]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      const lines = codeContent.split('\n').length;
+      const newHeight = Math.max(300, lines * 19 + 20) + 'px'; // Minimum 300px, 19px per line + 20px buffer
+      setEditorHeight(newHeight);
+    }, 100); // Debounce by 100ms
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [codeContent]);
 
   const fetchCodeDetail = async (versionToSelect?: number) => {
     try {
@@ -159,7 +172,8 @@ const CodeDetail: React.FC = () => {
                 </select>
               </div>
               <Editor
-                height="120vh" // Fixed height
+                
+                height={editorHeight}
                 language="python"
                 theme="vs-dark"
                 value={codeContent}
