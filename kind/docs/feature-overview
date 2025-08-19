@@ -1,2 +1,2 @@
 1. WSL 환경에서 FastAPI 를 활용하여 K8s 클러스터 설치하는 REST API 생성 
-2. Kubernetes 설치는 Kind(kubernetes in docker) 를 활용한
+2. Kubernetes 설치는 Kind(kubernetes in docker) 를 활용
